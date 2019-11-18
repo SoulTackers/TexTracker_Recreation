@@ -36,7 +36,8 @@ class Services(models.Model):
 class Client(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.DO_NOTHING)
     client_id = models.AutoField(primary_key=True)
-    client_name = models.CharField(max_length=60, default='client')
+    client_firstname = models.CharField(max_length=30, default='client')
+    client_lastname = models.CharField(max_length=30, default='')
     client_account_type = models.ForeignKey(
         AccountType, on_delete=models.DO_NOTHING, null=True, blank=True)
     client_office_address1 = models.TextField(null=True, blank=True)

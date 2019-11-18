@@ -7,6 +7,7 @@ import datetime
 
 # Create your models here.
 
+
 class InwardMode(models.Model):       # Here inward mode = inward type
     InwardMode_id = models.AutoField(primary_key=True)
     InwardMode_name = models.CharField(max_length=255,blank=True,null=True)
