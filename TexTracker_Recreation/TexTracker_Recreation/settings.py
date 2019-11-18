@@ -37,6 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'Employee.apps.EmployeeConfig',
+    'Invoice.apps.InvoiceConfig',
+    'FeesInward.apps.FeesinwardConfig',
+    'Inward.apps.InwardConfig',
+    'Outward.apps.OutwardConfig',
+    'PendingWork.apps.PendingworkConfig',
+    'Client.apps.ClientConfig',
+    'User.apps.UserConfig',
+    'phone_field',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +87,11 @@ WSGI_APPLICATION = 'TexTracker_Recreation.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mmh',
+        'HOST': 'localhost',
+        'USER': 'root',
+        'PASSWORD': '',
     }
 }
 
@@ -118,3 +133,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = 'media'
+MEDIA_URL = os.path.join(BASE_DIR, '/media/')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+AUTH_USER_MODEL = "User.CustomUser"
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,"static_proj"),
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        #'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        #'rest_framework.permissions.IsAuthenticated',
+        )
+}
