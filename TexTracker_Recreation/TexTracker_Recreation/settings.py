@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'TexTracker_Recreation.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mmh',
+        'NAME': 'test',
         'HOST': 'localhost',
         'USER': 'root',
         'PASSWORD': '',

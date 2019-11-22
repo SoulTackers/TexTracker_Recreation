@@ -25,6 +25,10 @@ class Role(models.Model):
 
 
 class CustomUser(AbstractUser):
+    '''
+    Customized user class
+    '''
+    email = models.EmailField()
     roles = models.ManyToManyField(Role)
 
 

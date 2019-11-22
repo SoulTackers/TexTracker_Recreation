@@ -1,0 +1,11 @@
+<!--books/templates/books/book-create.html-->
+{{employee_post_list123.employeePost_details}}
+<br>
+{{employee_post_list123.employeePost_name}}
+
+<form  method="POST">
+
+{% csrf_token %}
+{{form}}
+<button type="submit">SUBMIT</button>
+</form>
