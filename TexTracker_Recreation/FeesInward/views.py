@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from .forms import FeesinwardForm,PaymenttypeForm
-from django.shortcuts import render,get_object_or_404,render_to_response
+from .forms import FeesinwardForm, PaymenttypeForm
+from django.shortcuts import render, get_object_or_404, render_to_response
 from django.shortcuts import render
-from .models import Feesinward,PaymentType
+from .models import Feesinward, PaymentType
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -12,43 +12,39 @@ from django.contrib import messages
 def feesinward_view(request):
     if request.method == 'POST':
         form = FeesinwardForm(request.POST or None)
-        #form1 = PaymenttypeForm(request.POST or None)
-        if form.is_valid(): # and form1.is_valid()
+        if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Feesinward is added')
+            messages.add_message(request, messages.SUCCESS,
+                                 'Feesinward is added')
             form = FeesinwardForm()
-           # form1.save()
     else:
-        form = FeesinwardForm()       
-        messages.add_message(request, messages.ERROR, 'Feesinward is not added')
-      #  form1 = PaymenttypeForm()
-    
+        form = FeesinwardForm()
+        messages.add_message(request, messages.ERROR,
+                             'Feesinward is not added')
+
     context = {
-        'form' : form,
-      #  'payment_form':form1
+        'form': form,
     }
-    return render(request,'FeesInward/feesinward.html',context)
+    return render(request, 'FeesInward/feesinward.html', context)
+
 
 @login_required(login_url='login')
-def feesinward_update_view(request,id):
-    feesinward = get_object_or_404(Feesinward,outward_id=id)
-    #paymenttype = get_object_or_404(PaymentType,paymenttype_id=id)
-    feesinward_update_form = FeesinwardForm(request.POST or None,instance=feesinward)
-    #paymenttype_update_form = PaymenttypeForm(request.POST or None,instance=paymenttype)
+def feesinward_update_view(request, id):
+    feesinward = get_object_or_404(Feesinward, outward_id=id)
+    feesinward_update_form = FeesinwardForm(
+        request.POST or None, instance=feesinward)
 
-    if feesinward_update_form.is_valid() : #and paymenttype_update_form.is_valid()
+    if feesinward_update_form.is_valid():
         feesinward_update_form.save()
-        messages.add_message(request, messages.SUCCESS, 'Feesinward is updated')
-       # paymenttype_update_form.save()
-    
-    return render(request,'FeesInward/feesinward.html',{'form':feesinward_update_form})
+        messages.add_message(request, messages.SUCCESS,
+                             'Feesinward is updated')
+    return render(request, 'FeesInward/feesinward.html', {'form': feesinward_update_form})
 
 
 @login_required(login_url='login')
 def feesinward_list_view(request):
     feesinwards = Feesinward.objects.all()
-    return render(request,'FeesInward/feesinward_list.html',{'feesinwards':feesinwards})
-
+    return render(request, 'FeesInward/feesinward_list.html', {'feesinwards': feesinwards})
 
 
 # PaymentType views.....................................................................................
@@ -63,6 +59,7 @@ def AddPaymentTypeView(request):
         paymentTypeForm = PaymentTypeForm(request.POST or None)
         return render(request, 'Client/add-service.html', {'form': paymentTypeForm})
 
+
 @login_required(login_url='login')
 def UpdatePaymentTypeView(request, id):
     service = get_object_or_404(PaymentType, pk=id)
@@ -71,12 +68,13 @@ def UpdatePaymentTypeView(request, id):
         paymentTypeForm.save()
     return render(request, 'Client/add-service.html', {'form': paymentTypeForm})
 
+
 @login_required(login_url='login')
 def DeletePaymentTypeView(request, id):
     try:
         obj = PaymentType.objects.get(account_type_id=id)
         name = str(obj)
         obj.delete()
-        return render(request, 'delete_success.html', {'object':'PaymentType', 'name':name})
+        return render(request, 'delete_success.html', {'object': 'PaymentType', 'name': name})
     except:
-        return render(request, 'delete_success.html', {'object':'e', 'name':'error'}) 
+        return render(request, 'delete_success.html', {'object': 'e', 'name': 'error'})
