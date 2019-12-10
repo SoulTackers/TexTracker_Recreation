@@ -24,6 +24,7 @@ from Employee.views import AddEmployeePost, ListEmployeePost, UpdateEmployeePost
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('user/', user.as_view()),
+    path('user/', include('User.urls')),
+    path('client/', include('Client.urls')),
     path('Employee/', include('Employee.urls'))
 ]

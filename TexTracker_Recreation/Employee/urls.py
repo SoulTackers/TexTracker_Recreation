@@ -1,5 +1,6 @@
 from django.urls import path
 from Employee.views import (
+                                AdminAddEmployeeView,
                                 AddEmployeePost,
                                 ListEmployeePost,
                                 UpdateEmployeePost,
@@ -8,6 +9,7 @@ from Employee.views import (
                             )
 
 urlpatterns = [
+    path('add', AdminAddEmployeeView, name='add_employee'),
     path('EmployeePost/Add',
          AddEmployeePost.as_view(), name='add_employeepost'),
     path('EmployeePost/List',

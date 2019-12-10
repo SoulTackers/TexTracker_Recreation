@@ -8,8 +8,8 @@ from phone_field import PhoneField
 
 class EmployeePost(models.Model):
     employeePost_id = models.AutoField(primary_key=True)
-    employeePost_details = models.TextField(blank=True, null=True)
-    employeePost_name = models.CharField(max_length=256, blank=True, null=True)
+    employeePost_details = models.TextField(blank=True, null=True, verbose_name="Details")
+    employeePost_name = models.CharField(max_length=256, blank=True, null=True, verbose_name="Name")
 
     def __str__(self):
         return self.employeePost_name

@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 from Employee.forms import AdminEmployeeForm, EmployeePostForm
-from User.forms import CustomUserForm
+from User.forms import CustomEmployeeUserForm
+from User.models import CustomUser
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.views.generic import ListView, DetailView
 from Employee.models import Employee, EmployeePost
@@ -11,22 +12,24 @@ from django.urls import reverse_lazy
 # Create your views here.
 
 
-# def AdminAddEmployeeView(request):
-#     username = models.CharField(max_length=30)
-#     if request.method == 'POST':
-#         if username.is_valid():  # and form1.is_valid()
-#             user_form = CustomUserForm(
-#                 initial={'username': username, 'password': username})
-#             if user_form.is_valid()
-#             user_form.save()
-#             messages.add_message(
-#                 request, messages.SUCCESS, 'Employee is added')
-#     else:
-#         form = CustomUserForm()
-#     context = {
-#         'form': username,
-#     }
-#     return render(request, 'Employee/employee.html', context)
+def AdminAddEmployeeView(request):
+
+    if request.method == 'POST':
+        form = CustomEmployeeUserForm(request.POST or None)
+        if form.is_valid():
+            CustomUser.objects.create_user(
+                    username=request.POST['user_name'],
+                    first_name=request.POST['user_name'],
+                    password=request.POST['user_name']
+                )
+            messages.add_message(
+                request, messages.SUCCESS, 'Employee is added')
+    else:
+        form = CustomEmployeeUserForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'User/user.html', context)
 
 
 # class EmployeeDelete(DeleteView):
@@ -58,6 +61,11 @@ class AddEmployeePost(CreateView):
         'employeePost_details',
         'employeePost_name',
     ]
+    # def get_form(self):
+    #     labels = {
+    #     'employeePost_details' : 'Details',
+    #     'employeePost_name' : 'Name',
+    #     }
     template_name = 'Employee/EmployeePost_form.html'
     success_url = reverse_lazy('list_employeepost')
 
